@@ -58,7 +58,7 @@ const TopBar = () => {
       </button>
 
       <div className="flex gap-4 md:hidden">
-        <Link href={`/profile/${userData._id}/posts`}>
+        <Link href={`/profile/${userData?._id}/posts`}>
           <Person sx={{ fontSize: "35px", color: "white" }} />
         </Link>
 

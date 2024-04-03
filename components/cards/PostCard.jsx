@@ -63,13 +63,14 @@ const PostCard = ({ post, creator, loggedInUser, update }) => {
     update()
   }
 
+  let notfoundImg = "https://salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled-1150x647.png";
   return (
     <div className="w-full max-w-xl rounded-lg flex flex-col gap-4 bg-dark-1 p-5 max-sm:gap-2">
       <div className="flex justify-between">
         <Link href={`/profile/${creator._id}/posts`}>
           <div className="flex gap-3 items-center">
             <Image
-              src={creator.profilePhoto}
+              src={creator?.profilePhoto }
               alt="profile photo"
               width={50}
               height={50}
@@ -98,7 +99,7 @@ const PostCard = ({ post, creator, loggedInUser, update }) => {
       </p>
 
       <Image
-        src={post.postPhoto}
+        src={post.postPhoto !== "undefined" ? post.postPhoto : notfoundImg}
         alt="post photo"
         width={200}
         height={150}

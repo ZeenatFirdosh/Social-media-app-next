@@ -3,22 +3,72 @@
 import { AddPhotoAlternateOutlined } from "@mui/icons-material";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 const Posting = ({ post, apiEndpoint }) => {
+  const [srcimage, setImage] = useState(null);
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
+    setValue,
   } = useForm({
     defaultValues: post,
   });
 
   const router = useRouter();
 
+  const uploadFileHandler = async (imgfile) => {
+    let Url = null;
+    const formData = new FormData();
+    formData.append("file", imgfile);
+    formData.append(
+      "upload_preset",
+      process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET
+    );
+    formData.append(
+      "cloud_name",
+      process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
+    );
+    console.log(
+      process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
+      "process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME"
+    );
+    console.log(formData, "formData");
+    try {
+      // const res = await uploadProductImage(formData).unwrap();
+
+      const response = await fetch(
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+        {
+          method: "POST",
+          body: formData,
+        }
+      )
+        .then((resp) => resp.json())
+        .then((data) => {
+          setImage(data.url);
+          console.log(data.url, "data.url");
+        
+          setValue("postPhoto", data.url);
+          return data.url;
+        })
+        .catch((err) => console.log(err));
+
+      console.log(response, "res");
+      return response;
+      // toast.success("Image added successfully");
+    } catch (error) {
+      // toast.error(error?.data?.message || error.error);
+      console.log(error, "error");
+    }
+  };
+
   const handlePublish = async (data) => {
     try {
+      console.log(data.postPhoto,"data postPhoto of form")
       const postForm = new FormData();
 
       postForm.append("creatorId", data.creatorId);
@@ -26,18 +76,22 @@ const Posting = ({ post, apiEndpoint }) => {
       postForm.append("tag", data.tag);
 
       if (typeof data.postPhoto !== "string") {
-        postForm.append("postPhoto", data.postPhoto[0]);
+        const res = await uploadFileHandler(data.postPhoto[0]);
+        console.log(res, "res uploadFileHandler1");
+        postForm.append("postPhoto", res);
       } else {
-        postForm.append("postPhoto", data.postPhoto);
+        const res = await uploadFileHandler(data.postPhoto);
+        console.log(res, "res uploadFileHandler2");
+        postForm.append("postPhoto", res);
       }
-
+      console.log(postForm,"postForm")
       const response = await fetch(apiEndpoint, {
         method: "POST",
         body: postForm,
       });
 
       if (response.ok) {
-        router.push(`/profile/${data.creatorId}/posts`)
+        router.push(`/profile/${data.creatorId}/posts`);
       }
     } catch (err) {
       console.log(err);
@@ -90,6 +144,9 @@ const Posting = ({ post, apiEndpoint }) => {
               return "A photo is required!";
             }
             return true;
+          },
+          onChange: (e) => {
+            uploadFileHandler;
           },
         })}
         id="photo"

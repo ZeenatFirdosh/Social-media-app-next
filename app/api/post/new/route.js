@@ -14,19 +14,20 @@ export const POST = async (req) => {
 
     let postPhoto = data.get("postPhoto")
 
-    const bytes = await postPhoto.arrayBuffer()
-    const buffer = Buffer.from(bytes)
+    console.log(postPhoto, "postPhoto before")
+    // const bytes = await postPhoto.arrayBuffer()
+    // const buffer = Buffer.from(bytes)
 
-    const postPhotoPath = path.join(
-      currentWorkingDirectory,
-      "public",
-      "uploads",
-      postPhoto.name
-    )
+    // const postPhotoPath = path.join(
+    //   currentWorkingDirectory,
+    //   "public",
+    //   "uploads",
+    //   postPhoto.name
+    // )
 
-    await writeFile(postPhotoPath, buffer)
+    // await writeFile(postPhotoPath, buffer)
 
-    postPhoto = `/uploads/${postPhoto.name}`
+    // postPhoto = `/uploads/${postPhoto.name}`
 
     const newPost = await Post.create({
       creator: data.get("creatorId"),

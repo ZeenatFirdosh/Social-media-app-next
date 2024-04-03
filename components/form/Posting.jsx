@@ -32,11 +32,11 @@ const Posting = ({ post, apiEndpoint }) => {
       "cloud_name",
       process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
     );
-    console.log(
-      process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,
-      "process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME"
-    );
-    console.log(formData, "formData");
+    // console.log(
+    //   process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME,process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET,
+    //   "process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME"
+    // );
+    // console.log(formData, "formData");
     try {
       // const res = await uploadProductImage(formData).unwrap();
 
@@ -50,14 +50,14 @@ const Posting = ({ post, apiEndpoint }) => {
         .then((resp) => resp.json())
         .then((data) => {
           setImage(data.url);
-          console.log(data.url, "data.url");
+          // console.log(data.url, "data.url");
         
           setValue("postPhoto", data.url);
           return data.url;
         })
         .catch((err) => console.log(err));
 
-      console.log(response, "res");
+      // console.log(response, "res");
       return response;
       // toast.success("Image added successfully");
     } catch (error) {
@@ -68,7 +68,7 @@ const Posting = ({ post, apiEndpoint }) => {
 
   const handlePublish = async (data) => {
     try {
-      console.log(data.postPhoto,"data postPhoto of form")
+      // console.log(data.postPhoto,"data postPhoto of form")
       const postForm = new FormData();
 
       postForm.append("creatorId", data.creatorId);

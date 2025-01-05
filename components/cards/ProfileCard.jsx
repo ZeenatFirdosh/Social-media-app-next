@@ -5,6 +5,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { tabs } from "@constants";
 import Link from "next/link";
+import { toast } from 'react-toastify';
 
 const ProfileCard = ({ userData, activeTab }) => {
   const { user, isLoaded } = useUser();
@@ -91,12 +92,18 @@ const ProfileCard = ({ userData, activeTab }) => {
           (isFollowing ? (
             <PersonRemove
               sx={{ color: "#7857FF", cursor: "pointer", fontSize: "40px" }}
-              onClick={() => handleFollow()}
+              onClick={() => {
+                toast.success("UnFollowing...");
+                handleFollow();
+              }}
             />
           ) : (
             <PersonAddAlt
               sx={{ color: "#7857FF", cursor: "pointer", fontSize: "40px" }}
-              onClick={() => handleFollow()}
+              onClick={() =>{ 
+                toast.success("Following...");
+                handleFollow();
+              }}
             />
           ))}
       </div>

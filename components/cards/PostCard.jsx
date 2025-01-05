@@ -9,6 +9,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { toast } from 'react-toastify';
 
 const PostCard = ({ post, creator, loggedInUser, update }) => {
   const [userData, setUserData] = useState({});
@@ -57,6 +58,7 @@ const PostCard = ({ post, creator, loggedInUser, update }) => {
   };
 
   const handleDelete = async () => {
+    toast.success("Deleting Post...");
     await fetch(`/api/post/${post._id}/${userData._id}`, {
       method: "DELETE",
     });
@@ -113,18 +115,30 @@ const PostCard = ({ post, creator, loggedInUser, update }) => {
       <div className="flex justify-between">
         <div className="flex gap-2 items-center">
           {!isLiked ? (
-            <FavoriteBorder sx={{ color: "white", cursor: "pointer" }} onClick={() => handleLike()} />
+            <FavoriteBorder sx={{ color: "white", cursor: "pointer" }} onClick={() => {
+              toast.success("Post Liked...");
+              handleLike()
+            } } />
           ) : (
-            <Favorite sx={{ color: "red", cursor: "pointer" }} onClick={() => handleLike()} />
+            <Favorite sx={{ color: "red", cursor: "pointer" }} onClick={() => {
+              toast.success("Post Unliked...");
+              handleLike()
+            } } />
           )}
           <p className="text-light-1">{post.likes.length}</p>
         </div>
 
         {loggedInUser.id !== creator.clerkId &&
           (isSaved ? (
-            <Bookmark sx={{ color: "purple", cursor: "pointer" }} onClick={() => handleSave()} />
+            <Bookmark sx={{ color: "purple", cursor: "pointer" }} onClick={() => {
+              toast.success("Removing Post...");
+              handleSave()
+            }} />
           ) : (
-            <BookmarkBorder sx={{ color: "white", cursor: "pointer" }} onClick={() => handleSave()} />
+            <BookmarkBorder sx={{ color: "white", cursor: "pointer" }} onClick={() => {
+              toast.success("Adding Post...");
+              handleSave()
+            }} />
           ))}
 
           {loggedInUser.id === creator.clerkId && (

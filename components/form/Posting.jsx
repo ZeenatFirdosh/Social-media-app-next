@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from 'react-toastify';
 
 const Posting = ({ post, apiEndpoint }) => {
   const [srcimage, setImage] = useState(null);
@@ -21,6 +22,7 @@ const Posting = ({ post, apiEndpoint }) => {
   const router = useRouter();
 
   const uploadFileHandler = async (imgfile) => {
+    toast.success("Uploading file...");
     let Url = null;
     const formData = new FormData();
     formData.append("file", imgfile);
@@ -67,6 +69,7 @@ const Posting = ({ post, apiEndpoint }) => {
   };
 
   const handlePublish = async (data) => {
+    toast.success("Publishing file...");
     try {
       // console.log(data.postPhoto,"data postPhoto of form")
       const postForm = new FormData();

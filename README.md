@@ -1,4 +1,58 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Social Media (NEXT.Js)
+
+## Deployed Link: https://social-media-app-next-nine.vercel.app/
+
+## Description
+
+This is a social media application built using Next.js and Tailwind CSS. Users can create accounts, post updates, like and comment on posts, and follow other users.
+
+## Features
+
+- User registration and authentication using Clerk.
+- Create, read, update, and delete posts.
+- Like and comment on posts.
+- Follow and unfollow other users.
+- Search for users.
+- Display a user's profile with their posts, followers, and following.
+
+## Screenshots
+
+Home page:
+
+![alt text](image.png)
+
+User profile:
+
+![alt text](image-3.png)
+
+Post Create page:
+
+![alt text](image-1.png)
+
+People Page:
+
+![alt text](image-2.png)
+
+Search Page:
+
+![alt text](image-4.png)
+
+## Tech Stack
+
+- Next.js: A React framework for building server-rendered applications.
+- Tailwind CSS: A utility-first CSS framework for building responsive designs.
+- MongoDB: For storing user data and posts.
+- Mongoose: A MongoDB object modeling tool for Node.js.
+- Axios: For making API requests.
+- React-hook-form: For creating custom form elements.
+- React-toastify: For displaying notifications.
+- Clerk: For authenticating users.
+
+## How to run this project locally
+
+To run this project locally, you need to have Node.js and npm (or yarn or pnpm) installed on your machine.
+* Clone the repository.
+* Install the dependencies.
 
 ## Getting Started
 
@@ -16,18 +70,7 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
 ## Deploy on Vercel
 

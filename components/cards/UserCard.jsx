@@ -6,6 +6,7 @@ import { PersonAddAlt, PersonRemove } from "@mui/icons-material";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { toast } from 'react-toastify';
 
 const UserCard = ({ userData, update }) => {
   const { user, isLoaded } = useUser();
@@ -77,12 +78,16 @@ const UserCard = ({ userData, update }) => {
         (isFollowing ? (
           <PersonRemove
             sx={{ color: "#7857FF", cursor: "pointer" }}
-            onClick={() => handleFollow()}
+            onClick={() => {
+              toast.success("UnFollowing...");
+              handleFollow();
+            }}
           />
         ) : (
           <PersonAddAlt
             sx={{ color: "#7857FF", cursor: "pointer" }}
             onClick={() => {
+              toast.success("Following...");
               handleFollow();
             }}
           />
